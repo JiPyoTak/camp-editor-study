@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "outDir": "./dist",
+    "module": "ES6",
+    "strict": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+  },
+  "files": [
+    "js/campEditor/constants/toolbar.ts",
+    "js/campEditor/campEditor.ts",
+    "js/campEditor/types.ts",
+    "js/index.ts",
+  ]
+}

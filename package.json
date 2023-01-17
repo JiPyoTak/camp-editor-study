@@ -1,0 +1,23 @@
+{
+  "name": "camp-editor-study",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build index.html",
+    "dev": "parcel index.html --open",
+    "start": "npm run build && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch css/main.scss ./css/main.css"
+  },
+  "dependencies": {
+    "sass": "^1.57.1",
+    "suneditor": "^2.44.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "eslint": "^8.32.0",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.4"
+  }
+}

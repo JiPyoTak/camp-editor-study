@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+</body>
+  <div class="ce-editor">
+    <div class="ce-editor-toolbar">
+      <div class="ce-editor-line">
+        <div class="ce-editor-box">
+            <span class="ce-editor-btn smaller" data-action="bold" data-tag-name="strong" title="Bold">
+              <img alt="bold-btn" src="https://img.icons8.com/fluency-systems-filled/48/000000/bold.png"/>
+            </span>
+          <span class="ce-editor-btn smaller" data-action="italic" data-tag-name="i" title="Italic">
+              <img alt="italic-btn" src="https://img.icons8.com/fluency-systems-filled/48/000000/italic.png"/>
+            </span>
+          <span class="ce-editor-btn smaller" data-action="underline" data-tag-name="u" title="Underline">
+              <img src="https://img.icons8.com/fluency-systems-filled/48/000000/underline.png" alt="underline-btn"/>
+            </span>
+          <span class="ce-editor-btn smaller" data-action="strikeThrough" data-tag-name="del" title="Strike through">
+              <img src="https://img.icons8.com/fluency-systems-filled/30/000000/strikethrough.png" alt="strike-btn"/>
+            </span>
+        </div>
+        <div class="ce-editor-box">
+          <span class="ce-editor-btn ce-editor-has-submenu">
+            <img alt="align" src="https://img.icons8.com/fluency-systems-filled/48/000000/align-left.png"/>
+            <div class="ce-editor-submenu">
+              <span class="ce-editor-btn" data-action="justifyLeft" data-style="textAlign:left" title="Justify left">
+                <img alt="align-left" src="https://img.icons8.com/fluency-systems-filled/48/000000/align-left.png"/>
+              </span>
+              <span class="ce-editor-btn" data-action="justifyCenter" data-style="textAlign:center"
+                    title="Justify center">
+                <img alt="align-center" src="https://img.icons8.com/fluency-systems-filled/48/000000/align-center.png"/>
+              </span>
+              <span class="ce-editor-btn" data-action="justifyRight" data-style="textAlign:right" title="Justify right">
+                <img alt="align-right" src="https://img.icons8.com/fluency-systems-filled/48/000000/align-right.png"/>
+              </span>
+              <span class="ce-editor-btn" data-action="formatBlock" data-style="textAlign:justify"
+                    title="Justify block">
+                <img alt="align-justify" src="https://img.icons8.com/fluency-systems-filled/48/000000/align-justify.png"/>
+              </span>
+            </div>
+          </span>
+          <span class="ce-editor-btn" data-action="insertOrderedList" data-tag-name="ol" title="Insert ordered list">
+            <img alt="list" src="https://img.icons8.com/fluency-systems-filled/48/000000/numbered-list.png"/>
+          </span>
+          <span class="ce-editor-btn" data-action="insertUnorderedList" data-tag-name="ul"
+                title="Insert unordered list">
+            <img alt="bulleted-list" src="https://img.icons8.com/fluency-systems-filled/48/000000/bulleted-list.png"/>
+          </span>
+          <span class="ce-editor-btn" data-action="outdent" title="Outdent" data-required-tag="li">
+            <img alt="outdent" src="https://img.icons8.com/fluency-systems-filled/48/000000/outdent.png"/>
+          </span>
+          <span class="ce-editor-btn" data-action="indent" title="Indent">
+            <img alt="indent" src="https://img.icons8.com/fluency-systems-filled/48/000000/indent.png"/>
+          </span>
+
+        </div>
+        <div class="ce-editor-box">
+          <span class="ce-editor-btn" data-action="insertHorizontalRule" title="Insert horizontal rule">
+            <img alt="horizontal-line" src="https://img.icons8.com/fluency-systems-filled/48/000000/horizontal-line.png"/>
+          </span>
+        </div>
+      </div>
+      <div class="ce-editor-line">
+        <div class="ce-editor-box">
+          <span class="ce-editor-btn smaller" data-action="undo" title="Undo">
+            <img alt="undo" src="https://img.icons8.com/fluency-systems-filled/48/000000/undo--v1.png"/>
+          </span>
+          <span class="ce-editor-btn" data-action="removeFormat" title="Remove format">
+            <img alt="remove-format" src="https://img.icons8.com/fluency-systems-filled/48/000000/remove-format.png"/>
+          </span>
+        </div>
+
+        <div class="ce-editor-box">
+          <span class="ce-editor-btn smaller" data-action="createLink" title="Insert Link">
+            <img alt="add-link" src="https://img.icons8.com/fluency-systems-filled/48/000000/add-link.png"/>
+          </span>
+          <span class="ce-editor-btn smaller" data-action="unlink" data-tag-name="a" title="Unlink">
+            <img alt="delete-link" src="https://img.icons8.com/fluency-systems-filled/48/000000/delete-link.png"/>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="ce-content-area" contenteditable></div>
+  </div>
+  <script type="module" src="js/editor.js"></script>
+</html>
