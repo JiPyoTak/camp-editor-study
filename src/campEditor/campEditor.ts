@@ -1,5 +1,6 @@
 import { EditorOption, ToolbarOption } from './types';
 import { TOOLBAR } from './constants/toolbar';
+import { isSizeAttribute, isNumber } from './utils';
 
 class CampEditor {
   $element: Element;
@@ -10,25 +11,26 @@ class CampEditor {
    * @param options
    */
   constructor(elementOrId: Element | string, options: EditorOption) {
-    this.$element = this.getElement(elementOrId);
+    this.$element = this.getElement(elementOrId, options);
+    this.addParagraphTag();
     this.createToolbar(options.toolbarOptions);
+    this.createContentArea(options);
   }
 
   /**
    * @description
    * @param elementOrId
    */
-  getElement(elementOrId: Element | string): Element {
+  getElement(
+    elementOrId: Element | string,
+    { width = 700, height = 700 }: EditorOption
+  ): Element {
     let $element = null;
 
     if (elementOrId instanceof HTMLElement) {
       $element = elementOrId;
     } else if (typeof elementOrId === 'string') {
       $element = document.getElementById(elementOrId);
-
-      if (!$element) {
-        throw new Error(`CampEditor init: Wrong id => ${elementOrId}`);
-      }
     }
 
     if (!$element) {
@@ -36,6 +38,21 @@ class CampEditor {
         `CampEditor init: Wrong type elementOrId => ${elementOrId}`
       );
     }
+
+    if (isNumber(width)) {
+      width = `${width}px`;
+    } else if (!isSizeAttribute(width)) {
+      throw new Error('width 잘못 입력했어 자식아');
+    }
+
+    if (isNumber(height)) {
+      height = `${height}px`;
+    } else if (!isSizeAttribute(height)) {
+      throw new Error('height 잘못 입력했어 자식아');
+    }
+
+    const contentStyle = `width: ${width}; height: ${height};`;
+    $element.setAttribute('style', contentStyle);
 
     return $element;
   }
@@ -83,6 +100,35 @@ class CampEditor {
     $buttonImage.src = data.icon;
     $button.appendChild($buttonImage);
     return $button;
+  }
+
+  createContentArea({ placeholder }: EditorOption) {
+    const $contentArea = document.createElement('div');
+
+    $contentArea.setAttribute('contenteditable', 'true');
+    $contentArea.classList.add('ce-content-area');
+    if (placeholder) {
+      $contentArea.setAttribute('placeholder', placeholder);
+    }
+    $contentArea.append(document.createElement('p'));
+
+    this.$element.appendChild($contentArea);
+  }
+
+  addParagraphTag() {
+    this.$element.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') {
+        const selection = document.getSelection();
+
+        if (
+          selection &&
+          selection.anchorNode &&
+          selection?.anchorNode?.parentElement?.tagName === 'LI'
+        )
+          return;
+        document.execCommand('formatBlock', false, 'p');
+      }
+    });
   }
 }
 
