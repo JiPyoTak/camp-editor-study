@@ -1,6 +1,7 @@
 import { EditorOption, ToolbarOption } from './types';
 import { TOOLBAR } from './constants/toolbar';
 import { isSizeAttribute, isNumber } from './utils';
+import { Core } from './core';
 
 class CampEditor {
   $element: Element;
@@ -12,7 +13,7 @@ class CampEditor {
    */
   constructor(elementOrId: Element | string, options: EditorOption) {
     this.$element = this.getElement(elementOrId, options);
-    this.addParagraphTag();
+
     this.createToolbar(options.toolbarOptions);
     this.createContentArea(options);
   }
@@ -77,6 +78,7 @@ class CampEditor {
     });
 
     $toolbar.appendChild($toolbarLine);
+    this.onClickToolbarButton($toolbar);
     this.$element.appendChild($toolbar);
   }
 
@@ -96,9 +98,11 @@ class CampEditor {
 
     const $button = document.createElement('button');
     $button.classList.add('ce-editor-btn', 'smaller');
+    $button.setAttribute('data-type', toolbarOption);
     const $buttonImage = document.createElement('img');
     $buttonImage.src = data.icon;
     $button.appendChild($buttonImage);
+
     return $button;
   }
 
@@ -112,24 +116,61 @@ class CampEditor {
     }
     $contentArea.append(document.createElement('p'));
 
+    this.addParagraphTag($contentArea);
     this.$element.appendChild($contentArea);
   }
 
-  addParagraphTag() {
-    this.$element.addEventListener('keydown', (e) => {
-      if ((e as KeyboardEvent).key === 'Enter') {
-        const selection = document.getSelection();
+  addParagraphTag($contentArea: HTMLElement) {
+    $contentArea.addEventListener('keydown', (e) => {
+      const { key } = e as KeyboardEvent;
+      const { children } = $contentArea;
 
-        if (
-          selection &&
-          selection.anchorNode &&
-          selection?.anchorNode?.parentElement?.tagName === 'LI'
-        )
-          return;
+      if (key === 'Enter') {
+        const selection = document.getSelection();
+        if (selection?.anchorNode?.parentElement?.tagName === 'LI') return;
         document.execCommand('formatBlock', false, 'p');
-      }
+      } else if (
+        key === 'Backspace' &&
+        children.length === 1 &&
+        children[0].textContent === ''
+      )
+        e.preventDefault();
+    });
+  }
+
+  onClickToolbarButton($toolbar: Element) {
+    $toolbar.addEventListener('click', (e) => {
+      const eventTarget = e.target as HTMLElement;
+      const $button = eventTarget.closest('button');
+
+      if (!$button) return;
+
+      const buttonType = $button.dataset.type ?? '';
+      console.log(buttonType);
+
+      if (!(buttonType in TOOLBAR)) return;
+
+      Core.applyFeat(buttonType);
     });
   }
 }
 
 export { CampEditor };
+
+// // 사용
+// const { command } = event.target.dataset;
+// 기능들.apply(command);
+
+// // 구현
+// class 기능들 {
+//   applyFeature(command) {
+//     if (command === 'bold') this.bold();
+//   }
+//   bold() {
+//     //선택된거에 bold 적용
+//   }
+// }
+
+// 초기 contentArea에서 텍스트 입력시 p태그 내부에서 작성되게 하기
+// backspace 입렧시 마지막 p 태그 사라지지 않게 하기
+// enter 입력시 p태그 자동 생성 (not DIV)
