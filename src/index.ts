@@ -1,4 +1,5 @@
 import { CampEditor } from './campEditor/campEditor';
+import '../css/editor.css';
 
 new CampEditor('editor', {
   width: 1000,
