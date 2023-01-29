@@ -1,40 +1,42 @@
-import { TOOLBAR } from './constants';
-import type { ToolbarOption, TOptions } from './types';
+import { COMMAND_INFO } from './constants';
+import { CampCommand, CampEditorOptions } from './types';
 import { EditorController } from './Controller';
 
 class Toolbar {
   $element: HTMLElement;
-  options: TOptions;
+  options: CampEditorOptions;
   controller: EditorController;
 
-  constructor(options: TOptions, controller: EditorController) {
+  constructor(options: CampEditorOptions, controller: EditorController) {
     this.controller = controller;
+    this.options = options;
+
     this.$element = document.createElement('div');
     this.$element.classList.add('ce-editor-toolbar');
-    this.options = options;
-    const $buttons = this.options.buttons.map((ops) => {
-      return this.createGroup(ops);
-    });
+
+    const $buttons = (this.options.buttons ?? []).map(
+      this.createGroup.bind(this)
+    );
     this.$element.append(...$buttons);
   }
 
-  createGroup(options: ToolbarOption[]) {
+  createGroup(options: CampCommand[]) {
     const $element = document.createElement('div');
     $element.classList.add('ce-editor-box');
-    const children = options.map((option) => {
-      return this.createButton(option);
-    });
+
+    const children = options.map(this.createButton.bind(this));
     $element.append(...children);
     return $element;
   }
 
-  createButton(option: ToolbarOption) {
+  createButton(option: CampCommand) {
     const $element = document.createElement('button');
     $element.classList.add('ce-editor-btn');
     $element.setAttribute('data-command', option);
 
-    const { icon } = TOOLBAR[option] ?? {};
-    if (!icon) throw new Error('존재하지 않는 버튼 옵션입니다');
+    if (!COMMAND_INFO.hasOwnProperty(option))
+      throw new Error('존재하지 않는 버튼 옵션입니다');
+    const { icon } = COMMAND_INFO[option];
 
     const $icon = document.createElement('img');
     $icon.src = icon;
@@ -51,7 +53,7 @@ class Toolbar {
 
       if (!$targetButton) return;
 
-      const command = $targetButton.dataset.command as ToolbarOption;
+      const command = $targetButton.dataset.command as CampCommand;
 
       if (!command) return;
 

@@ -1,6 +1,11 @@
-type TOptions = { buttons: ToolbarOption[][] };
+interface CampEditorOptions {
+  width?: string;
+  height?: string | number;
+  placeholder?: string;
+  buttons?: CampCommand[][];
+}
 
-type ToolbarOption =
+type CampCommand =
   | 'undo'
   | 'redo'
   | 'font'
@@ -32,26 +37,18 @@ type ToolbarOption =
   | 'full-screen'
   | 'help';
 
-type ToolbarButtonInfo = {
+interface CampCommandDetail {
   icon: string;
   tagName?: keyof HTMLElementTagNameMap;
-};
-
-type Toolbars = {
-  [key in ToolbarOption]?: ToolbarButtonInfo;
-};
-
-interface EditorOption {
-  width?: number | string;
-  height?: number | string;
-  placeholder?: string;
-  toolbarOptions: ToolbarOption[][];
 }
 
+type CampCommandInfo = {
+  [key in CampCommand]: CampCommandDetail;
+};
+
 export type {
-  TOptions,
-  EditorOption,
-  ToolbarOption,
-  ToolbarButtonInfo,
-  Toolbars,
+  CampEditorOptions,
+  CampCommand,
+  CampCommandDetail,
+  CampCommandInfo,
 };

@@ -1,14 +1,12 @@
-import { Toolbar } from './Toolbar';
-import { TOptions } from './types';
-import { ContentArea } from './ContentArea';
-import { EditorController } from './Controller';
+import { EditorView } from './EditorView';
+import type { CampEditorOptions } from './types';
 
 class Editor {
   $root: HTMLElement;
   options: any;
   _editorView: EditorView;
 
-  constructor(idOrEl: HTMLElement | string, options: TOptions) {
+  constructor(idOrEl: HTMLElement | string, options: CampEditorOptions = {}) {
     this.$root = this.getRootElement(idOrEl);
     this.options = options;
     this._editorView = new EditorView(this.$root, options);
@@ -30,27 +28,6 @@ class Editor {
     }
 
     return $element;
-  }
-}
-
-class EditorView {
-  $root: HTMLElement;
-  _toolbar: Toolbar;
-  _contentArea: ContentArea;
-
-  options: TOptions;
-
-  controller: EditorController;
-
-  constructor($root: HTMLElement, options: TOptions) {
-    this.$root = $root;
-    this.options = options;
-
-    this.controller = new EditorController();
-    this._toolbar = new Toolbar(options, this.controller);
-    this._contentArea = new ContentArea(options, this.controller);
-    this.$root.appendChild(this._toolbar.$element);
-    this.$root.appendChild(this._contentArea.$element);
   }
 }
 

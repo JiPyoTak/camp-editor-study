@@ -1,5 +1,5 @@
-import { TOOLBAR } from './constants';
-import { ToolbarOption } from './types';
+import { COMMAND_INFO } from './constants';
+import { CampCommand } from './types';
 
 // Controller: 이벤트 실행
 class EditorController {
@@ -11,7 +11,8 @@ class EditorController {
     if (!selection) return;
   }
 
-  execCommand(command: ToolbarOption) {
+  execCommand(command: CampCommand) {
+    // TODO: 많아지면 리팩토링 생각해보기
     switch (command) {
       case 'bold':
       case 'italic':
@@ -25,9 +26,8 @@ class EditorController {
     }
   }
 
-  applyFormat(command: ToolbarOption) {
-    //
-    TOOLBAR[command];
+  applyFormat(command: CampCommand) {
+    console.log(COMMAND_INFO[command]);
   }
 }
 

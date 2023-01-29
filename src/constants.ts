@@ -1,6 +1,6 @@
-import { Toolbars } from './types';
+import type { CampCommandInfo } from './types';
 
-const TOOLBAR = {
+const COMMAND_INFO: CampCommandInfo = Object.freeze({
   bold: {
     tagName: 'strong',
     icon: 'https://img.icons8.com/fluency-systems-filled/48/000000/bold.png',
@@ -17,6 +17,6 @@ const TOOLBAR = {
     tagName: 'del',
     icon: 'https://img.icons8.com/fluency-systems-filled/30/000000/strikethrough.png',
   },
-} as Toolbars;
+}) as CampCommandInfo;
 
-export { TOOLBAR };
+export { COMMAND_INFO };
