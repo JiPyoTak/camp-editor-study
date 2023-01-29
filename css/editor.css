@@ -19,6 +19,8 @@ body {
 }
 
 .ce-editor-toolbar {
+  display: flex;
+  gap: 5px;
   box-shadow: 0 1px 4px rgba(122, 100, 100, 0.2);
 }
 .ce-editor-line {
@@ -172,8 +174,13 @@ footer a {
   color: #000;
 }
 
-/*# sourceMappingURL=main.css.map */
-
-.highlight {
-  background-color: orange;
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+div[contenteditable=true] {
+  border: 1px solid #ddd;
+  color : #333;
+  font-size: 12px;
+  padding: 5px;
 }

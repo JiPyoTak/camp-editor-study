@@ -1,12 +1,16 @@
 import { TOOLBAR } from './constants';
 import type { ToolbarOption, TOptions } from './types';
+import { EditorController } from './Controller';
 
 class Toolbar {
   $element: HTMLElement;
   options: TOptions;
+  controller: EditorController;
 
-  constructor(options: TOptions) {
+  constructor(options: TOptions, controller: EditorController) {
+    this.controller = controller;
     this.$element = document.createElement('div');
+    this.$element.classList.add('ce-editor-toolbar');
     this.options = options;
     const $buttons = this.options.buttons.map((ops) => {
       return this.createGroup(ops);
@@ -16,6 +20,7 @@ class Toolbar {
 
   createGroup(options: ToolbarOption[]) {
     const $element = document.createElement('div');
+    $element.classList.add('ce-editor-box');
     const children = options.map((option) => {
       return this.createButton(option);
     });
@@ -25,6 +30,7 @@ class Toolbar {
 
   createButton(option: ToolbarOption) {
     const $element = document.createElement('button');
+    $element.classList.add('ce-editor-btn');
     $element.setAttribute('data-id', option);
 
     const { icon } = TOOLBAR[option] ?? {};

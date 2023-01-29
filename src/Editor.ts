@@ -1,5 +1,7 @@
 import { Toolbar } from './Toolbar';
 import { TOptions } from './types';
+import { ContentArea } from './ContentArea';
+import { EditorController } from './Controller';
 
 class Editor {
   $root: HTMLElement;
@@ -34,31 +36,22 @@ class Editor {
 class EditorView {
   $root: HTMLElement;
   _toolbar: Toolbar;
-  _contentArea: any;
+  _contentArea: ContentArea;
 
   options: TOptions;
+
+  controller: EditorController;
 
   constructor($root: HTMLElement, options: TOptions) {
     this.$root = $root;
     this.options = options;
 
-    this._toolbar = new Toolbar(options);
+    this.controller = new EditorController();
+    this._toolbar = new Toolbar(options, this.controller);
+    this._contentArea = new ContentArea(options, this.controller);
     this.$root.appendChild(this._toolbar.$element);
-    // this.$contentArea = new ContentArea(options);
+    this.$root.appendChild(this._contentArea.$element);
   }
 }
-
-class ContentArea {
-  options: any;
-
-  constructor(options: any) {
-    this.options = options;
-  }
-}
-// class EditorController { }
 
 export { Editor };
-
-const options = {
-  buttons: [['bold', ''], [], []],
-};
