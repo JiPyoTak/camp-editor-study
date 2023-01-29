@@ -31,7 +31,7 @@ class Toolbar {
   createButton(option: ToolbarOption) {
     const $element = document.createElement('button');
     $element.classList.add('ce-editor-btn');
-    $element.setAttribute('data-id', option);
+    $element.setAttribute('data-command', option);
 
     const { icon } = TOOLBAR[option] ?? {};
     if (!icon) throw new Error('존재하지 않는 버튼 옵션입니다');
@@ -41,6 +41,22 @@ class Toolbar {
     $element.appendChild($icon);
 
     return $element;
+  }
+
+  initEventListener() {
+    this.$element.addEventListener('click', (e: MouseEvent) => {
+      const $targetButton = (e.target as HTMLElement).closest(
+        '.ce-editor-btn'
+      ) as HTMLElement;
+
+      if (!$targetButton) return;
+
+      const command = $targetButton.dataset.command as ToolbarOption;
+
+      if (!command) return;
+
+      this.controller.execCommand(command);
+    });
   }
 }
 
