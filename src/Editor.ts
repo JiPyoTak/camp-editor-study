@@ -1,15 +1,19 @@
 import { EditorView } from './EditorView';
 import type { CampEditorOptions } from './types';
+import { getOptions } from './utils';
 
 class Editor {
   $root: HTMLElement;
-  options: any;
+  options: CampEditorOptions;
   _editorView: EditorView;
 
-  constructor(idOrEl: HTMLElement | string, options: CampEditorOptions = {}) {
+  constructor(
+    idOrEl: HTMLElement | string,
+    options: Partial<CampEditorOptions> = {}
+  ) {
     this.$root = this.getRootElement(idOrEl);
-    this.options = options;
-    this._editorView = new EditorView(this.$root, options);
+    this.options = getOptions(options);
+    this._editorView = new EditorView(this.$root, this.options);
   }
 
   getRootElement(idOrEl: HTMLElement | string) {
@@ -26,7 +30,6 @@ class Editor {
     if (!$element) {
       throw new Error('태그가 존재하지 않습니다.');
     }
-
     return $element;
   }
 }

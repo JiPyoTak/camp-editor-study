@@ -3,11 +3,11 @@ import type { CampEditorOptions } from './types';
 import '../css/editor.css';
 
 const options = {
-  height: 1000,
+  height: '1000px',
   buttons: [
     ['bold', 'italic'],
     ['underline', 'strike'],
   ],
-} as CampEditorOptions;
+} as Partial<CampEditorOptions>;
 
 new Editor('editor', options);

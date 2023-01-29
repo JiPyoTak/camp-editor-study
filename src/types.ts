@@ -1,8 +1,8 @@
 interface CampEditorOptions {
-  width?: string;
-  height?: string | number;
-  placeholder?: string;
-  buttons?: CampCommand[][];
+  width: string;
+  height: string;
+  placeholder: string;
+  buttons: CampCommand[][];
 }
 
 type CampCommand =
