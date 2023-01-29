@@ -1,9 +1,15 @@
+import { Toolbar } from './Toolbar';
+import { TOptions } from './types';
+
 class Editor {
-  $element: HTMLElement | string;
+  $root: HTMLElement;
   options: any;
-  constructor(idOrEl: HTMLElement | string, options: any) {
-    this.$element = this.getRootElement(idOrEl);
+  _editorView: EditorView;
+
+  constructor(idOrEl: HTMLElement | string, options: TOptions) {
+    this.$root = this.getRootElement(idOrEl);
     this.options = options;
+    this._editorView = new EditorView(this.$root, options);
   }
 
   getRootElement(idOrEl: HTMLElement | string) {
@@ -26,35 +32,26 @@ class Editor {
 }
 
 class EditorView {
-  $element: HTMLElement;
-  $toolbar: Toolbar;
-  $contentArea: HTMLElement;
+  $root: HTMLElement;
+  _toolbar: Toolbar;
+  _contentArea: any;
 
-  options: any;
+  options: TOptions;
 
-  constructor($element: HTMLElement, options: any) {
-    this.$element = $element;
+  constructor($root: HTMLElement, options: TOptions) {
+    this.$root = $root;
+    this.options = options;
 
-    this.$toolbar = new Toolbar(options);
+    this._toolbar = new Toolbar(options);
+    this.$root.appendChild(this._toolbar.$element);
     // this.$contentArea = new ContentArea(options);
   }
-}
-
-class Toolbar {
-  $element: HTMLElement;
-  options: any;
-
-  constructor(options: any) {
-    this.options = options;
-  }
-
-  create() {}
 }
 
 class ContentArea {
   options: any;
 
-  constructor(options) {
+  constructor(options: any) {
     this.options = options;
   }
 }
