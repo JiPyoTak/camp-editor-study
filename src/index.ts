@@ -1,4 +1,4 @@
-import { CampEditor } from './campEditor/campEditor';
+import { CampEditor } from './campEditor/EditorView';
 import '../css/editor.css';
 
 new CampEditor('editor', {
