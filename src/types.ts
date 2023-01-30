@@ -5,6 +5,8 @@ interface CampEditorOptions {
   buttons: CampCommand[][];
 }
 
+type Test = keyof CampEditorOptions;
+
 type CampCommand =
   | 'undo'
   | 'redo'

@@ -1,18 +1,19 @@
 import { EditorController } from './Controller';
+import { CampEditorOptions } from './types';
 
 class ContentArea {
-  options: any;
+  options: CampEditorOptions;
   $element: HTMLElement;
   controller: EditorController;
 
-  constructor(options: any, controller: EditorController) {
+  constructor(options: CampEditorOptions, controller: EditorController) {
     this.controller = controller;
     this.options = options;
 
     this.$element = this.createContentArea(options);
   }
 
-  createContentArea(options: any) {
+  createContentArea(options: CampEditorOptions) {
     const $element = document.createElement('div');
     $element.classList.add('ce-editor-content-area');
     $element.setAttribute('contenteditable', 'true');

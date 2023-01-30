@@ -1,4 +1,4 @@
-import { CampCommand, CampEditorOptions } from './types';
+import { CampEditorOptions } from './types';
 
 export const defaultOptions: Pick<
   CampEditorOptions,
@@ -13,6 +13,7 @@ export const defaultOptions: Pick<
   placeholder: '내용을 입력하세요',
 };
 
+// 지정하지 않은 옵션이 들어왔을때
 export function getOptions(
   options: Partial<CampEditorOptions>
 ): CampEditorOptions {
