@@ -3,9 +3,11 @@ import { CampCommand } from './types';
 
 // Controller: 이벤트 실행
 class EditorController {
+  $root: HTMLElement;
   selection: Selection;
 
-  constructor() {
+  constructor($root: HTMLElement) {
+    this.$root = $root;
     const selection = window.getSelection();
     this.selection = selection ?? new Selection();
     if (!selection) return;

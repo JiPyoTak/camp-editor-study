@@ -1,4 +1,4 @@
-import { CampEditorOptions } from './types';
+import { CampEditorOptions } from '../types';
 
 export const defaultOptions: Pick<
   CampEditorOptions,

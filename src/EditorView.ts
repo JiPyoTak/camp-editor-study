@@ -16,7 +16,7 @@ class EditorView {
     this.$root = $root;
     this.options = options;
 
-    this.controller = new EditorController();
+    this.controller = new EditorController($root);
     this._toolbar = new Toolbar(options, this.controller);
     this._contentArea = new ContentArea(options, this.controller);
     this.$root.appendChild(this._toolbar.$element);

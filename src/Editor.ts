@@ -1,6 +1,6 @@
 import { EditorView } from './EditorView';
 import type { CampEditorOptions } from './types';
-import { getOptions } from './utils';
+import { getOptions } from './utils/option';
 
 class Editor {
   $root: HTMLElement;
