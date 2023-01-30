@@ -1,26 +1,29 @@
 interface Selection {
   isForward: boolean;
+  getForwardNodes: () => [Node, Node];
 }
 
-// 드래그시 정방향 여부를 판단
+/**
+ * 정방향, 역방향 여부 판단
+ * @returns boolean - true: 정방향 / false: 역방향
+ */
 Object.defineProperty(Selection.prototype, 'isForward', {
   get: function (this: Selection) {
     const { anchorNode, anchorOffset, focusNode, focusOffset } = this;
 
     if (!anchorNode || !focusNode) return true;
 
-    // 드래그 방향을 저장해야 한다.
-    //// true = 정방향
     const selectionPosition = anchorNode.compareDocumentPosition(focusNode);
-    const direction = !(
+    return !(
       (!selectionPosition && anchorOffset > focusOffset) ||
       selectionPosition === Node.DOCUMENT_POSITION_PRECEDING
     );
-
-    return direction;
   },
 });
 
-const sel = document.getSelection();
-
-const a = sel?.isForward;
+Object.defineProperty(Selection.prototype, 'getForwardNodes', {
+  value: function (this: Selection) {
+    const { anchorNode, focusNode } = this;
+    return this.isForward ? [anchorNode, focusNode] : [focusNode, anchorNode];
+  },
+});

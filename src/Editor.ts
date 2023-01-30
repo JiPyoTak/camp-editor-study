@@ -1,3 +1,4 @@
+import './Selection';
 import { EditorView } from './EditorView';
 import type { CampEditorOptions } from './types';
 import { getOptions } from './utils/option';

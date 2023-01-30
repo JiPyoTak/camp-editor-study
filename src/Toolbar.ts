@@ -17,6 +17,7 @@ class Toolbar {
     const $buttons = (this.options.buttons ?? []).map(
       this.createGroup.bind(this)
     );
+    this.initEventListener();
     this.$element.append(...$buttons);
   }
 
