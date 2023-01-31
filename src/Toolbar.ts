@@ -35,8 +35,10 @@ class Toolbar {
     $element.classList.add('ce-editor-btn');
     $element.setAttribute('data-command', option);
 
-    if (!COMMAND_INFO.hasOwnProperty(option))
+    if (!COMMAND_INFO[option]) {
       throw new Error('존재하지 않는 버튼 옵션입니다');
+    }
+
     const { icon } = COMMAND_INFO[option];
 
     const $icon = document.createElement('img');
@@ -48,6 +50,8 @@ class Toolbar {
 
   initEventListener() {
     this.$element.addEventListener('click', (e: MouseEvent) => {
+      e.preventDefault();
+
       const $targetButton = (e.target as HTMLElement).closest(
         '.ce-editor-btn'
       ) as HTMLElement;

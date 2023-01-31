@@ -18,27 +18,16 @@ function customClosest<T extends Element | Node>(
   return null;
 }
 
-function isParagraph(el: Element | Node, $root: HTMLElement) {
+function isParagraph(el: Element | Node) {
   return Boolean(el.parentElement?.getAttribute('contenteditable'));
 }
 
 // 선택된 모든 라인을 반환해야겠다고 생각함
-export function getEditorLines(
-  selection: Selection,
-  $root: HTMLElement
-): Element[] {
-  // $root -> contentarea (p태그들 사이에서 있는거 찾는다?)
-  // 모든 p태그 검사
-  // index로 검사하는건 비슷하네
-
+export function getEditorLines(selection: Selection): Element[] {
   const [anchorNode, focusNode] = selection.getForwardNodes();
 
-  const anchorLine = customClosest.call(anchorNode, (el) =>
-    isParagraph(el, $root)
-  );
-  const focusLine = customClosest.call(focusNode, (el) =>
-    isParagraph(el, $root)
-  );
+  const anchorLine = customClosest.call(anchorNode, (el) => isParagraph(el));
+  const focusLine = customClosest.call(focusNode, (el) => isParagraph(el));
 
   const content = anchorLine?.parentElement?.children;
 
